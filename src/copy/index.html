@@ -8,7 +8,7 @@
       href="css/main.min.css"
     />
   </head>
-  <body>
+  <body id="body">
     <h1>Nutrients</h1>
 
     <form
@@ -37,6 +37,22 @@
       id="searchResults"
       class="search-results"
     ></p>
+
+    <div
+      class="product-info-modal"
+      id="productInfoModal"
+    >
+      <button
+        class="close-modal"
+        id="closeModal"
+      >
+        x
+      </button>
+      <div
+        class="product-info"
+        id="productInfo"
+      ></div>
+    </div>
 
     <!-- Scripts -->
     <script src="js/detects.min.js"></script>

@@ -1,0 +1,23 @@
+.product-info-modal {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.modal-open.product-info-modal {
+  display: block;
+}
+
+.close-modal {
+  font-size: 50px;
+}
+
+.product-info {
+  height: 100%;
+  width: 100%;
+}
