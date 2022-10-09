@@ -1,4 +1,4 @@
-import { toggleModal, productInfoModal } from './modal.js';
+import { getSeletedProductInfo } from './selectedItem';
 
 const searchFoodForm = document.querySelector('#searchFoodForm');
 const searchFoodInput = document.querySelector('#searchFoodInput');
@@ -16,20 +16,6 @@ let storeData = async (url, cb) => {
   console.log(dataObject.products);
   cb();
 };
-
-function populateSelectedItemInfo(data) {
-  productInfoModal.innerText = `${data[0].id} ${data[0].product_name}`;
-  toggleModal();
-}
-
-function getSeletedProductInfo(e) {
-  const selectedItem = e.currentTarget;
-  const selectedItemInfo = dataObject.products.filter(
-    (item) => item.id === selectedItem.dataset.id
-  );
-
-  populateSelectedItemInfo(selectedItemInfo);
-}
 
 function createResultItem(product) {
   const productListItem = document.createElement('div');
@@ -49,6 +35,9 @@ function populateResults() {
     const productInfo = {
       name: item.product_name,
       id: item.id,
+      image: item.image_url,
+      ingredients: item.ingredients_text,
+      nutrients: item.nutriments,
     };
     results.push(productInfo);
   });
@@ -60,10 +49,6 @@ function populateResults() {
   searchResults.append(fragment);
 }
 
-function populateData() {
-  searchResults.innerText = JSON.stringify(dataObject);
-}
-
 function searchFood(e) {
   e.preventDefault();
 
@@ -73,3 +58,5 @@ function searchFood(e) {
 }
 
 searchFoodForm.addEventListener('submit', searchFood);
+
+export { dataObject };
