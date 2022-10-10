@@ -46,6 +46,8 @@ function populateResults() {
     fragment.append(createResultItem(item));
   });
 
+  searchResults.innerHTML = '';
+
   searchResults.append(fragment);
 }
 
@@ -53,6 +55,8 @@ function searchFood(e) {
   e.preventDefault();
 
   const searchLink = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${searchFoodInput.value}&page=1&search_simple=1&action=process&json=1`;
+
+  searchFoodInput.value = '';
 
   storeData(searchLink, populateResults);
 }
