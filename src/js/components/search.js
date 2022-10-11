@@ -1,9 +1,11 @@
 import { getSeletedProductInfo } from './selectedItem';
+import { populatePagination } from './pagination';
 
 const searchFoodForm = document.querySelector('#searchFoodForm');
 const searchFoodInput = document.querySelector('#searchFoodInput');
 const searchResults = document.querySelector('#searchResults');
 let dataObject;
+let currentSearchedItem;
 
 async function fetchData(url) {
   const results = await fetch(url);
@@ -14,7 +16,7 @@ async function fetchData(url) {
 let storeData = async (url, cb) => {
   dataObject = await fetchData(url);
   console.log(dataObject.products);
-  cb();
+  cb({currentPage: dataObject.page});
 };
 
 function createResultItem(product) {
@@ -27,7 +29,7 @@ function createResultItem(product) {
   return productListItem;
 }
 
-function populateResults() {
+function populateResults(options) {
   const results = [];
   const fragment = document.createDocumentFragment();
 
@@ -46,21 +48,29 @@ function populateResults() {
     fragment.append(createResultItem(item));
   });
 
+  if(options.currentPage === 1) {
+    populatePagination();
+  }
+
   searchResults.innerHTML = '';
 
   searchResults.append(fragment);
 }
 
-function searchFood(e) {
+function searchFood(e, options) {
   e.preventDefault();
 
-  const searchLink = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${searchFoodInput.value}&page=1&search_simple=1&action=process&json=1`;
+  if(!options) {
+    currentSearchedItem = searchFoodInput.value;
 
-  searchFoodInput.value = '';
+    searchFoodInput.value = '';
+  }
+
+  const searchLink = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${options ? options.searchedItem : currentSearchedItem}&page=${options ? options.page : '1'}&search_simple=1&action=process&json=1`;
 
   storeData(searchLink, populateResults);
 }
 
 searchFoodForm.addEventListener('submit', searchFood);
 
-export { dataObject };
+export { dataObject, searchFood, currentSearchedItem };
