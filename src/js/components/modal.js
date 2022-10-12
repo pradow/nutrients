@@ -4,6 +4,7 @@ const closeModalButton = document.querySelector('#closeModal');
 
 function toggleModal() {
   productInfoModalContainer.classList.toggle('modal-open');
+  window.scrollTo(0, 0);
 }
 
 closeModalButton.addEventListener('click', toggleModal);
