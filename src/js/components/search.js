@@ -1,5 +1,6 @@
 import { getSeletedProductInfo } from './selectedItem';
 import { populatePagination } from './pagination';
+import { toggleLoader } from './loader';
 
 const searchFoodForm = document.querySelector('#searchFoodForm');
 const searchFoodInput = document.querySelector('#searchFoodInput');
@@ -55,10 +56,14 @@ function populateResults(options) {
   searchResults.innerHTML = '';
 
   searchResults.append(fragment);
+
+  toggleLoader();
 }
 
 function searchFood(e, options) {
   e.preventDefault();
+
+  toggleLoader();
 
   if(!options) {
     currentSearchedItem = searchFoodInput.value;
