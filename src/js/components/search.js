@@ -31,6 +31,12 @@ function createResultItem(product) {
   return productListItem;
 }
 
+function disabledForm(isDisabled) {
+  Array.prototype.forEach.call(searchFoodForm.elements, (element) => {
+    element.disabled = isDisabled;
+});
+}
+
 function populateResults(options) {
   const results = [];
   const fragment = document.createDocumentFragment();
@@ -59,12 +65,16 @@ function populateResults(options) {
   searchResults.append(fragment);
 
   toggleLoader();
+
+  disabledForm(false);
 }
 
 function searchFood(e, options) {
   e.preventDefault();
 
   toggleLoader();
+
+  disabledForm(true);
 
   if(!options) {
     currentSearchedItem = searchFoodInput.value;
@@ -73,7 +83,7 @@ function searchFood(e, options) {
 
     searchTerm.classList.remove('hide');
 
-    searchFoodInput.value = '';
+
   }
 
   const searchLink = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${options ? options.searchedItem : currentSearchedItem}&page=${options ? options.page : '1'}&search_simple=1&action=process&json=1`;
