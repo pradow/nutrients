@@ -5,6 +5,7 @@ import { toggleLoader } from './loader';
 const searchFoodForm = document.querySelector('#searchFoodForm');
 const searchFoodInput = document.querySelector('#searchFoodInput');
 const searchResults = document.querySelector('#searchResults');
+const searchTerm = document.querySelector('#searchTerm');
 let dataObject;
 let currentSearchedItem;
 
@@ -67,6 +68,10 @@ function searchFood(e, options) {
 
   if(!options) {
     currentSearchedItem = searchFoodInput.value;
+
+    searchTerm.innerHTML = `Results for <span class="searched-term">${currentSearchedItem}</span>`;
+
+    searchTerm.classList.remove('hide');
 
     searchFoodInput.value = '';
   }
