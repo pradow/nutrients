@@ -66,6 +66,8 @@ function populateResults(options) {
 
   toggleLoader();
 
+  searchFoodInput.value = '';
+
   disabledForm(false);
 }
 
